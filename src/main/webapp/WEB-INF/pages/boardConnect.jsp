@@ -29,20 +29,17 @@
 			var urlBoardServer='';
 			if($('#opType').val()=='2')
 				{
-					urlBoardServer = '<spring:message code="prop.school.url.rest.board.class"/>'+$('#classId').val();
-
+					urlBoardServer = '<c:url value="/RestServletSchool"/>?opType=2&val='+$('#classId').val();
 				}
 			if($('#opType').val()=='1')
 				{
-					urlBoardServer = '<spring:message code="prop.school.url.rest.board.grno"/>'+$('#grNumber').val();
-	
+					urlBoardServer = '<c:url value="/RestServletSchool"/>?opType=1&val='+$('#grNumber').val();
 				}
 			
 			$("#list2").GridUnload();
 			$("#list2").trigger('reloadGrid');
 			createGrid(urlBoardServer);
-			
-			
+
 		});
 	});
 	

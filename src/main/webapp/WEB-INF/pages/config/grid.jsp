@@ -1,22 +1,13 @@
 <script>
 var mydata = [];
-	$(function() {
-		
-	/*	
-		$("#btnDataFetch").click(function(){
-			createGrid();
-			
-		});	
-	*/	
-		
-	});
+
 	
 	
 	function createGrid(myUrl)
 	{
 		
 		var grid = $("#list2");
-		console.log("url : "+myUrl);
+		//console.log("url : "+myUrl);
 		grid.jqGrid({
 			url:myUrl,
 		    loadonce: false,
