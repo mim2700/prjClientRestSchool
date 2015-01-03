@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  
+ * Project 				:	SQU Gate Permit
+ * Organization 		:	Sultan Qaboos University
+ * Centre				:	Centre for Information System
+ * Department 			:	Planning & Development
+ * Author				:	Bhabesh
+ * 
+ * FrameWork			:	Spring 3.1.0 (Annotation) Portlet
+ * 
+ * File Name			:	common.xml
+ * 
+ * Date of Modification	:	08-Aug-2012
+ *  
+ * Summary				:	Spring context file
+ *
+ * Copyright 2012 the original author or authors.
+ *
+ * Licensed under the SQU, CIS policy
+ * you may not use this file except in compliance with the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ */
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+
+
+
+
+<context:component-scan base-package="com.nishayani.school.rest.controller" />
+<mvc:annotation-driven />
+
+	<!-- Bean to show you Di in GAE, via Spring, also init the MovieController -->
+<!-- 	<bean class="org.nishayani.shayan.controller.ControllerMain"> -->
+<!-- 		<property name="message"> -->
+<!-- 			<value>Hello World</value> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
+
+<!-- Message source for this context, loaded from localized "messages_xx" files -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>messages</value>
+<!-- 				<value>imageprop</value> -->
+			</list>
+		</property>	
+	</bean>
+<!-- Locale selector - start -->
+
+
+	<bean id="localeChangeInterceptor"
+		class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+		<property name="paramName" value="language" />
+	</bean>
+
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.CookieLocaleResolver" />
+
+	<bean id="handlerMapping"
+		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+		<property name="interceptors">
+			<ref bean="localeChangeInterceptor" />
+		</property>
+	</bean>
+
+<bean id="restServletSchool" class="com.nishayani.school.rest.servlet.RestSchoolServlet">
+	
+</bean>
+
+<bean id="schoolServiceDao" class="com.nishayani.school.rest.dao.service.SchoolServiceDaoImpl"/>
+
+<!-- Locale selector - end -->
+
+<mvc:resources mapping="/**" location="/*" /> 
+
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/WEB-INF/pages/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+
+</beans>
